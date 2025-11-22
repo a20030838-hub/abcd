@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>청소년 프로그램 개발과 평가 - Intro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;500;900&display=swap" rel="stylesheet">
+    <style>
+        /* 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* 움직이는 그라데이션 배경 */
+            background: linear-gradient(-45deg, #1a2a6c, #b21f1f, #fdbb2d, #2F80ED);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: white;
+        }
+
+        /* 배경 애니메이션 키프레임 */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 중앙 유리 패널 (Glassmorphism) */
+        .glass-container {
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 4rem 5rem;
+            text-align: center;
+            max-width: 90%;
+            width: 800px;
+            
+            /* 등장 애니메이션 */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        /* 메인 타이틀 스타일 */
+        .main-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            line-height: 1.2;
+        }
+
+        .sub-title {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 3rem;
+            opacity: 0.8;
+            letter-spacing: 1px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .sub-title::after {
+            content: '';
+            display: block;
+            width: 60%;
+            height: 2px;
+            background: rgba(255,255,255,0.5);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* 조원 리스트 컨테이너 */
+        .team-section {
+            margin-top: 2rem;
+        }
+
+        .team-label {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .members {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* 개별 팀원 이름 스타일 */
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid transparent;
+            
+            /* 순차적 등장 애니메이션 */
+            opacity: 0;
+            animation: fadeInMembers 0.5s ease-out forwards;
+        }
+
+        .member-name:hover {
+            background: rgba(255, 255, 255, 1);
+            color: #333;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        /* 딜레이를 주어 순서대로 나타나게 함 */
+        .member-name:nth-child(1) { animation-delay: 0.8s; }
+        .member-name:nth-child(2) { animation-delay: 1.0s; }
+        .member-name:nth-child(3) { animation-delay: 1.2s; }
+        .member-name:nth-child(4) { animation-delay: 1.4s; }
+
+        /* 버튼 (선택사항) */
+        .enter-btn {
+            margin-top: 4rem;
+            padding: 1rem 3rem;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            background: transparent;
+            border: 2px solid white;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+            
+            opacity: 0;
+            animation: fadeInUp 1s ease-out 2s forwards; /* 2초 뒤 등장 */
+        }
+
+        .enter-btn:hover {
+            background: white;
+            color: #1a2a6c;
+        }
+
+        /* 키프레임 정의 */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInMembers {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            .main-title { font-size: 2.5rem; }
+            .glass-container { padding: 2rem; width: 90%; }
+            .members { gap: 1rem; }
+            .member-name { font-size: 1.1rem; padding: 0.6rem 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="glass-container">
+        <h1 class="main-title">청소년 프로그램<br>개발과 평가</h1>
+        <div class="sub-title">Youth Program Development & Evaluation</div>
+
+        <div class="team-section">
+            <div class="team-label">Team Members</div>
+            <div class="members">
+                <div class="member-name">강진</div>
+                <div class="member-name">채은</div>
+                <div class="member-name">서하</div>
+                <div class="member-name">영훈</div>
+            </div>
+        </div>
+
+        <!-- 필요 시 다음 페이지로 이동하는 기능 추가 -->
+        <button class="enter-btn" onclick="alert('발표를 시작하겠습니다!')">Start Presentation</button>
+    </div>
+
+</body>
+</html>
