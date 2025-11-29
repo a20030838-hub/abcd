@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웰다잉 라이프케어 프로젝트 | Well-Dying LifeCare</title>
+    
+    <!-- Google Fonts (우아한 명조체와 가독성 좋은 고딕체) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (스타일링 프레임워크) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Library (스크롤 애니메이션) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome (아이콘) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#5F7161',    /* 숲의 색 (안정감) */
+                        secondary: '#EFEAD8',  /* 베이지 (따뜻함) */
+                        dark: '#2D3436',       /* 텍스트 */
+                        light: '#F9F9F9',      /* 배경 */
+                        accent: '#D0C9C0'
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                        serif: ['"Nanum Myeongjo"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { font-family: 'Noto Sans KR', sans-serif; color: #333; overflow-x: hidden; }
+        h1, h2, h3, h4 { font-family: 'Nanum Myeongjo', serif; }
+        .hero-bg {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1534531173927-aeb928d54385?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .card-shadow { box-shadow: 0 4px 20px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card-shadow:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -21px; top: 6px;
+            width: 12px; height: 12px; border-radius: 50%; background: #5F7161;
+        }
+        .timeline-border { border-left: 2px solid #D0C9C0; }
+    </style>
+</head>
+<body class="bg-light text-dark leading-relaxed">
+
+    <!-- 네비게이션 -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary font-serif">Well-Dying<span class="text-sm font-sans ml-2 text-gray-500">LifeCare Project</span></a>
+            <div class="hidden md:flex space-x-8 text-sm font-medium">
+                <a href="#about" class="hover:text-primary transition">사업개요</a>
+                <a href="#necessity" class="hover:text-primary transition">필요성</a>
+                <a href="#programs" class="hover:text-primary transition">프로그램</a>
+                <a href="#schedule" class="hover:text-primary transition">예약신청 및 비용</a>
+                <a href="#contact" class="bg-primary text-white px-5 py-2 rounded-full hover:bg-opacity-90 transition">문의하기</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 히어로 섹션 -->
+    <header class="hero-bg h-screen flex items-center justify-center text-center text-white px-4">
+        <div data-aos="fade-up" data-aos-duration="1000">
+            <p class="text-lg md:text-xl mb-4 font-light tracking-widest">아름다운 삶의 마무리를 위한 준비</p>
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">웰다잉 라이프케어 프로젝트<br><span class="text-2xl md:text-4xl font-light block mt-2">Well-Dying LifeCare Project</span></h1>
+            <p class="text-base md:text-lg max-w-2xl mx-auto mb-10 text-gray-200">
+                지역사회 기반의 자율적·예방적 웰다잉 지원 체계를 구축하여<br>
+                당신의 존엄하고 평안한 삶의 마무리를 돕습니다.
+            </p>
+            <a href="#about" class="border border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-primary transition duration-300">프로젝트 자세히 보기</a>
+        </div>
+    </header>
+
+    <!-- 1. 사업 개요 및 목적 -->
+    <section id="about" class="py-20 container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-primary font-bold tracking-wider uppercase text-sm">Project Overview</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2">사업 개요 및 목적</h2>
+            <div class="w-16 h-1 bg-primary mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <h3 class="text-2xl font-serif font-bold mb-4 text-primary">추진 배경</h3>
+                <ul class="space-y-3 text-gray-600">
+                    <li class="flex items-start"><i class="fas fa-check text-primary mt-1 mr-3"></i>초고령사회 진입과 삶의 마무리(EOL) 관심 증가</li>
+                    <li class="flex items-start"><i class="fas fa-check text-primary mt-1 mr-3"></i>죽음 준비 교육 부재 및 낮은 사전연명의료의향서 작성률</li>
+                    <li class="flex items-start"><i class="fas fa-check text-primary mt-1 mr-3"></i>독거노인 고독사 급증 및 가족 돌봄 부담 심화</li>
+                    <li class="flex items-start"><i class="fas fa-check text-primary mt-1 mr-3"></i>지역사회 기반의 포괄적 웰다잉 네트워크 필요</li>
+                </ul>
+            </div>
+            <div class="bg-secondary/30 p-8 rounded-2xl" data-aos="fade-left">
+                <h3 class="text-2xl font-serif font-bold mb-4 text-primary">핵심 목적 4가지</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-white p-4 rounded shadow-sm flex items-center">
+                        <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 font-bold">1</span>
+                        <p>시민 대상 <strong>죽음 준비 교육</strong> 제공</p>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm flex items-center">
+                        <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 font-bold">2</span>
+                        <p>고독사 위험군 <strong>심리·사회적 지지 체계</strong> 구축</p>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm flex items-center">
+                        <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 font-bold">3</span>
+                        <p>사전연명의료의향서 등 <strong>실질적 웰다잉 준비</strong> 지원</p>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow-sm flex items-center">
+                        <span class="bg-primary text-white w-8 h-8 rounded-full flex items-center justify-center mr-3 font-bold">4</span>
+                        <p>지역사회·기관 협력 <strong>웰다잉 네트워크</strong> 구축</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2. 대상 및 필요성 (통계) -->
+    <section id="necessity" class="py-20 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-bold">누구를 위한, 왜 필요한 사업인가?</h2>
+                <p class="text-gray-500 mt-4">객관적인 지표가 웰다잉 교육의 시급함을 말해줍니다.</p>
+            </div>
+
+            <!-- 대상 -->
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <div class="bg-white p-8 rounded-xl text-center card-shadow" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="text-4xl text-primary mb-4"><i class="fas fa-user-clock"></i></div>
+                    <h4 class="text-xl font-bold mb-2">1차 대상 (핵심)</h4>
+                    <p class="text-gray-600">지역 내 65세 이상 노인<br>독거노인, 기초수급자<br>고독사 위험군</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl text-center card-shadow" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="text-4xl text-primary mb-4"><i class="fas fa-users"></i></div>
+                    <h4 class="text-xl font-bold mb-2">2차 대상 (확산)</h4>
+                    <p class="text-gray-600">중·장년층 (40~64세)<br>일반 시민 누구나</p>
+                </div>
+                <div class="bg-white p-8 rounded-xl text-center card-shadow" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="text-4xl text-primary mb-4"><i class="fas fa-hands-helping"></i></div>
+                    <h4 class="text-xl font-bold mb-2">협력 파트너</h4>
+                    <p class="text-gray-600">사회복지사, 요양보호사<br>보건소, 지역 복지관</p>
+                </div>
+            </div>
+
+            <!-- 근거 통계 -->
+            <div class="grid md:grid-cols-4 gap-4 text-center">
+                <div class="bg-primary text-white p-6 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-3xl font-bold mb-1">OECD 1위</h3>
+                    <p class="text-sm opacity-80">노인 자살률 수준</p>
+                </div>
+                <div class="bg-primary text-white p-6 rounded-lg" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-3xl font-bold mb-1">3,000명+</h3>
+                    <p class="text-sm opacity-80">연간 고독사 추정 (2023)</p>
+                </div>
+                <div class="bg-primary text-white p-6 rounded-lg" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-3xl font-bold mb-1">2% 내외</h3>
+                    <p class="text-sm opacity-80">사전연명의료의향서 등록률</p>
+                </div>
+                <div class="bg-primary text-white p-6 rounded-lg" data-aos="fade-up" data-aos-delay="400">
+                    <h3 class="text-3xl font-bold mb-1">200만</h3>
+                    <p class="text-sm opacity-80">2035년 노인 1인가구 전망</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. 프로그램 구성 (3대 영역) -->
+    <section id="programs" class="py-20 container mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-primary font-bold tracking-wider uppercase text-sm">Our Solutions</span>
+            <h2 class="text-3xl md:text-4xl font-bold mt-2">3대 핵심 프로그램 영역</h2>
+            <div class="w-16 h-1 bg-primary mx-auto mt-4"></div>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- 교육 영역 -->
+            <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden card-shadow group" data-aos="fade-up">
+                <div class="bg-primary p-6 text-white text-center">
+                    <i class="fas fa-book-open text-4xl mb-3"></i>
+                    <h3 class="text-xl font-bold">A. 웰다잉 리터러시 교육</h3>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4">
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">죽음 이해 교육</strong>
+                            <span class="text-sm text-gray-500">죽음의 의미, 수용 과정, 슬픔 이해 (강의/워크숍)</span>
+                        </li>
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">연명의료 이해</strong>
+                            <span class="text-sm text-gray-500">연명의료결정법 및 의향서 교육</span>
+                        </li>
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">재정·법률 준비</strong>
+                            <span class="text-sm text-gray-500">상속, 유언, 신탁 (변호사/재무전문가)</span>
+                        </li>
+                        <li>
+                            <strong class="block text-primary">버킷리스트</strong>
+                            <span class="text-sm text-gray-500">삶의 정리 및 목표 재정립 코칭</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 상담 영역 -->
+            <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden card-shadow group" data-aos="fade-up" data-aos-delay="100">
+                <div class="bg-[#7D8E80] p-6 text-white text-center">
+                    <i class="fas fa-heart text-4xl mb-3"></i>
+                    <h3 class="text-xl font-bold">B. 상담·정서 지원</h3>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4">
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">웰다잉 심리상담</strong>
+                            <span class="text-sm text-gray-500">죽음 불안, 우울감, 상실감 치유 상담</span>
+                        </li>
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">상실·애도 지원</strong>
+                            <span class="text-sm text-gray-500">사별 가족 및 지인 대상 그룹 테라피</span>
+                        </li>
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">고독사 모니터링</strong>
+                            <span class="text-sm text-gray-500">위험군 방문/전화 상담, 생활관리사 연계</span>
+                        </li>
+                        <li>
+                            <strong class="block text-primary">1:1 플래너 상담</strong>
+                            <span class="text-sm text-gray-500">개인 맞춤형 사전 준비 플랜 수립</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 실무 영역 -->
+            <div class="bg-white border border-gray-100 rounded-2xl overflow-hidden card-shadow group" data-aos="fade-up" data-aos-delay="200">
+                <div class="bg-[#A3B18A] p-6 text-white text-center">
+                    <i class="fas fa-file-signature text-4xl mb-3"></i>
+                    <h3 class="text-xl font-bold">C. 실질적 준비 지원</h3>
+                </div>
+                <div class="p-8">
+                    <ul class="space-y-4">
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">사전연명의료의향서</strong>
+                            <span class="text-sm text-gray-500">작성 이행 지원 및 공공기관 등록 대행</span>
+                        </li>
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">유언장·상속 가이드</strong>
+                            <span class="text-sm text-gray-500">법적 효력이 있는 유언 및 공증 절차 안내</span>
+                        </li>
+                        <li class="border-b pb-2">
+                            <strong class="block text-primary">웰다잉 가이드북</strong>
+                            <span class="text-sm text-gray-500">장례 방식 선택 등 개인 맞춤형 설계서 제공</span>
+                        </li>
+                        <li>
+                            <strong class="block text-primary">디지털 유품 정리</strong>
+                            <span class="text-sm text-gray-500">SNS 계정 삭제 및 디지털 흔적 정리 안내</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 일정 및 예산 (Logic Model 포함) -->
+    <section id="schedule" class="py-20 bg-secondary/20">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-12">
+                
+                <!-- 연간 일정 -->
+                <div data-aos="fade-right">
+                    <h3 class="text-2xl font-bold mb-6 text-primary font-serif"><i class="far fa-calendar-alt mr-2"></i>연간 추진 일정</h3>
+                    <div class="bg-white p-8 rounded-xl shadow-sm timeline-border ml-4 space-y-8 border-l-2 border-gray-300">
+                        <div class="relative pl-6 timeline-item">
+                            <span class="text-sm font-bold text-gray-400">1월 ~ 2월</span>
+                            <h4 class="text-lg font-bold text-primary">준비 단계</h4>
+                            <p class="text-sm text-gray-600">대상자 모집, 홍보, 전문 강사 섭외</p>
+                        </div>
+                        <div class="relative pl-6 timeline-item">
+                            <span class="text-sm font-bold text-gray-400">3월 ~ 5월</span>
+                            <h4 class="text-lg font-bold text-primary">1차 교육 운영</h4>
+                            <p class="text-sm text-gray-600">죽음준비 교육 및 워크숍 진행</p>
+                        </div>
+                        <div class="relative pl-6 timeline-item">
+                            <span class="text-sm font-bold text-gray-400">6월 ~ 8월</span>
+                            <h4 class="text-lg font-bold text-primary">실무 및 심화</h4>
+                            <p class="text-sm text-gray-600">사전연명의료의향서 집중 작성, 심리상담·애도 프로그램</p>
+                        </div>
+                        <div class="relative pl-6 timeline-item">
+                            <span class="text-sm font-bold text-gray-400">9월 ~ 11월</span>
+                            <h4 class="text-lg font-bold text-primary">2차 교육 및 케어</h4>
+                            <p class="text-sm text-gray-600">2차 웰다잉 교육, 고독사 위험군 집중 케어</p>
+                        </div>
+                        <div class="relative pl-6 timeline-item">
+                            <span class="text-sm font-bold text-gray-400">12월</span>
+                            <h4 class="text-lg font-bold text-primary">평가 및 확산</h4>
+                            <p class="text-sm text-gray-600">성과 발표회, 결과 보고서 작성</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 예산 및 로직모델 요약 -->
+                <div class="space-y-8" data-aos="fade-left">
+                    <!-- 예산 -->
+                    <div class="bg-white p-8 rounded-xl shadow-sm">
+                        <h3 class="text-2xl font-bold mb-6 text-primary font-serif"><i class="fas fa-coins mr-2"></i>소요 예산 (1년/500명)</h3>
+                        <table class="w-full text-sm text-left text-gray-600">
+                            <thead class="bg-gray-50 text-gray-700 uppercase">
+                                <tr>
+                                    <th class="px-4 py-3 rounded-tl-lg">항목</th>
+                                    <th class="px-4 py-3 text-right rounded-tr-lg">금액 (원)</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr><td class="px-4 py-3">강사비</td><td class="px-4 py-3 text-right">15,000,000</td></tr>
+                                <tr><td class="px-4 py-3">프로그램 운영비</td><td class="px-4 py-3 text-right">10,000,000</td></tr>
+                                <tr><td class="px-4 py-3">상담 운영비</td><td class="px-4 py-3 text-right">5,000,000</td></tr>
+                                <tr><td class="px-4 py-3">기타(홍보/인쇄)</td><td class="px-4 py-3 text-right">5,000,000</td></tr> <!-- 합산처리 -->
+                                <tr class="bg-primary/10 font-bold text-primary text-base">
+                                    <td class="px-4 py-4 rounded-bl-lg">총계</td>
+                                    <td class="px-4 py-4 text-right rounded-br-lg">35,000,000</td> <!-- 원본 합계 오류 수정 반영 또는 원본 유지 -->
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p class="text-xs text-gray-400 mt-2 text-right">* 원본 사업계획서 기반 (총계 3,000만원 기준 조정 가능)</p>
+                    </div>
+
+                    <!-- 성과 목표 (KPI) -->
+                    <div class="bg-primary text-white p-8 rounded-xl shadow-sm">
+                        <h3 class="text-2xl font-bold mb-4 font-serif"><i class="fas fa-chart-line mr-2"></i>목표 성과 (Output)</h3>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-white/20 p-4 rounded-lg">
+                                <div class="text-2xl font-bold">500명</div>
+                                <div class="text-xs opacity-80">교육 참여</div>
+                            </div>
+                            <div class="bg-white/20 p-4 rounded-lg">
+                                <div class="text-2xl font-bold">200건</div>
+                                <div class="text-xs opacity-80">의향서 작성</div>
+                            </div>
+                            <div class="bg-white/20 p-4 rounded-lg">
+                                <div class="text-2xl font-bold">300건</div>
+                                <div class="text-xs opacity-80">전문 상담</div>
+                            </div>
+                            <div class="bg-white/20 p-4 rounded-lg">
+                                <div class="text-2xl font-bold">100명</div>
+                                <div class="text-xs opacity-80">고독사 케어</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. 기대효과 및 평가 -->
+    <section class="py-20 container mx-auto px-6">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold">프로젝트 기대 효과</h2>
+            <p class="text-gray-500 mt-2">개인, 가족, 지역사회가 함께 변화합니다.</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="0">
+                <img src="https://images.unsplash.com/photo-1516307365426-bea591f05011?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="개인" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
+                <h4 class="text-xl font-bold text-primary">개인 (Individual)</h4>
+                <p class="text-gray-600 text-sm mt-2 px-4">노년기 불안 감소, 삶의 의미 회복, 생의 마무리 준비 능력 향상</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1511895426328-dc8714191300?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="가족" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
+                <h4 class="text-xl font-bold text-primary">가족 (Family)</h4>
+                <p class="text-gray-600 text-sm mt-2 px-4">상속·장례 갈등 최소화, 간병·의료비 부담 감소, 관계 회복</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="사회" class="w-full h-48 object-cover rounded-lg mb-4 shadow-md">
+                <h4 class="text-xl font-bold text-primary">지역사회 (Community)</h4>
+                <p class="text-gray-600 text-sm mt-2 px-4">고독사 예방, 돌봄체계 효율성 증대, 건강한 생사관 문화 확산</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 푸터 -->
+    <footer id="contact" class="bg-dark text-gray-300 py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+                <div>
+                    <h2 class="text-2xl font-bold text-white font-serif mb-4">Well-Dying LifeCare</h2>
+                    <p class="text-sm opacity-70 leading-relaxed">
+                        우리는 모두 언젠가 이별을 맞이합니다.<br>
+                        그 마지막 여정이 외롭지 않고, 존엄할 수 있도록 함께하겠습니다.
+                    </p>
+                </div>
+                <div class="md:text-right">
+                    <h3 class="text-lg font-bold text-white mb-4">문의처</h3>
+                    <p class="mb-2"><i class="fas fa-phone-alt mr-2"></i> 070-4106-1403 (웰다잉 사업팀)</p>
+                    <p class="mb-2"><i class="fas fa-envelope mr-2"></i> 20030838@naver.comr</p>
+                    <p><i class="fas fa-map-marker-alt mr-2"></i> 대전광역시 유성구 계산동 복지재단 웰다잉 센터</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-xs opacity-50">
+                 Copyright © 2024-2025 AMBASSADOR. Well-Dying LifeCare Project. All Rights Reserved. <br>
+                Ambassador COMPANY CEO LEE
+            </div>
+        </div>
+    </footer>
+
+    <!-- 스크립트 초기화 -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            once: true, // 애니메이션 한 번만 실행
+            offset: 100, // 트리거 위치
+            duration: 800, // 지속 시간
+            easing: 'ease-out-cubic',
+        });
+    </script>
+</body>
+</html>
