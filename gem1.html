@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>이영훈: 비드플래닛을 위한 AI 세일즈 솔루션</title>
+<style>
+    /* --- 1. Global Reset & Typography --- */
+    :root {
+        --bg-color: #050509;
+        --text-main: #e0e0e0;
+        --text-muted: #9494a8;
+        --accent-cyan: #00f3ff;
+        --accent-purple: #bc13fe;
+        --glass-bg: rgba(255, 255, 255, 0.05);
+        --glass-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        overflow-x: hidden;
+        line-height: 1.6;
+    }
+
+    h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.02em; }
+    a { text-decoration: none; color: inherit; }
+    
+    /* --- 2. Animated Background (Neural Network) --- */
+    #canvas-bg {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: -1;
+        opacity: 0.4;
+    }
+
+    /* --- 3. Layout Components --- */
+    .container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 1;
+    }
+
+    section {
+        padding: 100px 0;
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    section.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* --- 4. Hero Section --- */
+    .hero {
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .hero-badge {
+        background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));
+        color: #000;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        display: inline-block;
+        text-transform: uppercase;
+    }
+
+    .hero h1 {
+        font-size: clamp(3rem, 6vw, 5rem);
+        line-height: 1.1;
+        margin-bottom: 20px;
+        background: linear-gradient(to right, #fff, #999);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+        font-size: 1.2rem;
+        color: var(--text-muted);
+        max-width: 600px;
+        margin-bottom: 40px;
+    }
+
+    .typing-cursor::after {
+        content: '|';
+        animation: blink 1s step-start infinite;
+        color: var(--accent-cyan);
+    }
+
+    @keyframes blink { 50% { opacity: 0; } }
+
+    /* --- 5. Glass Cards (Features) --- */
+    .grid-cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .glass-card {
+        background: var(--glass-bg);
+        border: 1px solid var(--glass-border);
+        backdrop-filter: blur(10px);
+        padding: 40px;
+        border-radius: 16px;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .glass-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--accent-cyan);
+        box-shadow: 0 10px 30px -10px rgba(0, 243, 255, 0.2);
+    }
+
+    .glass-card h3 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: var(--accent-cyan);
+    }
+
+    /* --- 6. Call to Action --- */
+    .cta-button {
+        background: white;
+        color: black;
+        padding: 18px 40px;
+        border-radius: 50px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        display: inline-block;
+    }
+
+    .cta-button:hover {
+        background: var(--accent-cyan);
+        box-shadow: 0 0 20px var(--accent-cyan);
+        transform: scale(1.05);
+    }
+
+    /* --- 7. Footer --- */
+    footer {
+        padding: 50px 0;
+        border-top: 1px solid var(--glass-border);
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+</style>
+</head>
+<body>
+
+<!-- AI Network Background -->
+<canvas id="canvas-bg"></canvas>
+
+<!-- Main Content -->
+<div class="container">
+    
+    <!-- Hero Section -->
+    <section class="hero visible">
+        <div class="hero-badge">Proposal for PRIZMUS</div>
+        <h1 id="typing-text"><span class="typing-cursor"></span></h1>
+        <p>대전의 입찰 혁신 리더, (주)프리즈머스 비드플래닛의 영업 생태계를 확장할<br>
+        <strong>AI 네이티브 세일즈 파트너, 이영훈</strong>입니다.</p>
+        <a href="#contact" class="cta-button">제안서 상세 보기</a>
+    </section>
+
+    <!-- About / Why Me -->
+    <section id="strategy">
+        <h2><span style="color:var(--accent-cyan)">Prizmus</span> + <span style="color:var(--accent-purple)">Lee Young-hoon</span></h2>
+        <p style="font-size: 1.5rem; margin-top: 10px; color: var(--text-main);">
+            비드플래닛의 기술력에 세일즈 엔진을 장착합니다.
+        </p>
+
+        <div class="grid-cols">
+            <div class="glass-card">
+                <h3>01. Data-Driven Sales</h3>
+                <p>단순한 방문 영업이 아닙니다. 입찰 데이터를 분석하여 낙찰 가능성이 높은 잠재 고객을 AI 툴로 사전에 필터링하고, 정밀 타격합니다.</p>
+            </div>
+            <div class="glass-card">
+                <h3>02. Tech Understanding</h3>
+                <p>비드플래닛의 알고리즘을 이해합니다. 고객에게 단순 상품이 아닌 '낙찰 확률'이라는 기술적 가치를 개발자의 언어로 설명합니다.</p>
+            </div>
+            <div class="glass-card">
+                <h3>03. CRM Automation</h3>
+                <p>고객 관리의 자동화. 영업 파이프라인을 디지털화하여 놓치는 고객이 0%가 되도록 시스템을 구축합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section>
+        <div class="glass-card" style="text-align: center; border-color: var(--accent-purple);">
+            <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Why Now?</h2>
+            <p style="max-width: 700px; margin: 0 auto 30px auto;">
+                AI 시대의 전자조달 시장은 속도와 정확성 싸움입니다.<br>
+                웹 생태계를 이해하고 기술을 영업에 접목할 수 있는 인재가 필요합니다.<br>
+                제가 바로 <strong>(주)프리즈머스의 다음 성장 동력(Next Engine)</strong>입니다.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer / CTA -->
+    <footer id="contact">
+        <h2 style="color:white; margin-bottom: 30px;">Start the Connection</h2>
+        <a href="tel:010-0000-0000" class="cta-button">이영훈과 인터뷰 예약하기</a>
+        <p style="margin-top: 30px;">
+            Developed by Lee Young-hoon<br>
+            Powered by AI & World Class Web Technology
+        </p>
+    </footer>
+
+</div>
+
+<script>
+    // --- 1. Typing Effect ---
+    const textToType = "영업의 미래를 코딩하다.";
+    const typeElement = document.getElementById('typing-text');
+    let i = 0;
+
+    function typeWriter() {
+        if (i < textToType.length) {
+            typeElement.innerHTML = textToType.substring(0, i+1) + '<span class="typing-cursor"></span>';
+            i++;
+            setTimeout(typeWriter, 100);
+        }
+    }
+    setTimeout(typeWriter, 500);
+
+    // --- 2. Scroll Reveal ---
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('section').forEach(section => {
+        observer.observe(section);
+    });
+
+    // --- 3. Neural Network Background (Canvas) ---
+    const canvas = document.getElementById('canvas-bg');
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 1; // speed
+            this.vy = (Math.random() - 0.5) * 1;
+            this.size = Math.random() * 2;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+            ctx.fillStyle = 'rgba(0, 243, 255, 0.5)'; // Cyan particles
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const particleCount = window.innerWidth < 768 ? 40 : 80; // Responsive count
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+    }
+    initParticles();
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        
+        for (let i = 0; i < particles.length; i++) {
+            particles[i].update();
+            particles[i].draw();
+            
+            // Connect particles
+            for (let j = i; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+
+                if (distance < 150) {
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(188, 19, 254, ${1 - distance / 150})`; // Purple connections
+                    ctx.lineWidth = 0.5;
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+    animate();
+</script>
+
+</body>
+</html>
