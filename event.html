@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정모터스 6주년 빅 이벤트</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+        :root {
+            --gold: linear-gradient(to bottom, #cf9d42, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+            --text-gold: #fcf6ba;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            color: white;
+            font-family: 'Noto Sans KR', sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .space-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #1b2735 0%, #090a0f 100%);
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: moveStar linear infinite;
+        }
+
+        @keyframes moveStar {
+            from { transform: translateY(0); }
+            to { transform: translateY(-100vh); }
+        }
+
+        .header-container {
+            margin-top: 40px;
+            text-align: center;
+            perspective: 1000px;
+        }
+
+        .main-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 3.5rem;
+            background: var(--gold);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 5px 15px rgba(186, 148, 62, 0.6));
+            transform: rotateX(15deg);
+            animation: float 3s ease-in-out infinite;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .sub-title {
+            font-size: 1.5rem;
+            color: #fff;
+            text-shadow: 0 0 10px #4facfe;
+            margin-bottom: 30px;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotateX(15deg) translateY(0); }
+            50% { transform: rotateX(15deg) translateY(-10px); }
+        }
+
+        .input-wrap {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #cf9d42;
+            margin-bottom: 30px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .input-wrap input {
+            padding: 10px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            border: none;
+            width: 200px;
+            text-align: center;
+        }
+
+        .input-wrap button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background: var(--gold);
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .chance-text {
+            margin-top: 10px;
+            font-size: 1.1rem;
+            color: #fcf6ba;
+        }
+
+        .jackpot-wrap {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+            z-index: 10;
+        }
+
+        .jackpot-box {
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 140px;
+            border: 1px solid rgba(255,255,255,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+
+        .grand { background: linear-gradient(135deg, #FFD700, #B8860B); color: #000; }
+        .major { background: linear-gradient(135deg, #E0E0E0, #757575); color: #000; }
+        .minor { background: linear-gradient(135deg, #CD7F32, #5D3A1A); color: #fff; }
+
+        .jackpot-box h3 { margin: 0; font-size: 14px; }
+        .jackpot-box p { margin: 5px 0 0; font-size: 18px; font-weight: bold; }
+
+        .wheel-outer {
+            position: relative;
+            padding: 15px;
+            background: var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 40px rgba(186, 148, 62, 0.5);
+            margin-bottom: 50px;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0; height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 45px solid #ff3333;
+            z-index: 150;
+            filter: drop-shadow(0 0 10px rgba(255,0,0,0.8));
+        }
+
+        #wheel-canvas {
+            border-radius: 50%;
+            background: #111;
+            display: block;
+        }
+
+        .spin-btn {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px; height: 100px;
+            background: radial-gradient(circle, #00c6ff 0%, #0072ff 100%);
+            border: 4px solid #fff;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 0 30px rgba(0, 198, 255, 0.7);
+            z-index: 200;
+            transition: all 0.2s;
+        }
+
+        .spin-btn:active { transform: translate(-50%, -50%) scale(0.9); }
+        .spin-btn:disabled { background: #555 !important; cursor: default; box-shadow: none; }
+
+    </style>
+</head>
+<body>
+
+    <div class="space-bg" id="space"></div>
+
+    <div class="header-container">
+        <h1 class="main-title">정모터스 6주년 빅 이벤트</h1>
+        <div class="sub-title">대전오토몰 No.1 중고차 이벤트 담당 매니저 이영훈</div>
+    </div>
+
+    <div class="input-wrap">
+        <input type="tel" id="phone-input" placeholder="전화번호 (010-0000-0000)">
+        <button onclick="registerPhone()">기회 받기</button>
+        <div class="chance-text" id="chance-display">남은 기회: 0회</div>
+    </div>
+
+    <div class="jackpot-wrap">
+        <div class="jackpot-box grand"><h3>순금 1돈</h3><p>축하합니다</p></div>
+        <div class="jackpot-box major"><h3>전차종 50만원 할인</h3><p>50만원 할인권</p></div>
+        <div class="jackpot-box minor"><h3>전차종 30만원 할인</h3><p>30만원 할인권</p></div>
+    </div>
+
+    <div class="wheel-outer">
+        <div class="pointer"></div>
+        <canvas id="wheel-canvas" width="550" height="550"></canvas>
+        <button class="spin-btn" id="spin-button" onclick="spinWheel()" disabled>돌림판<br>도전!</button>
+    </div>
+
+    <script>
+        const space = document.getElementById('space');
+        for (let i = 0; i < 150; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+            star.style.animationDelay = Math.random() * 5 + 's';
+            space.appendChild(star);
+        }
+
+        let remainingSpins = 0;
+        let isSpinning = false;
+        const spinBtn = document.getElementById('spin-button');
+        const chanceDisplay = document.getElementById('chance-display');
+
+        function registerPhone() {
+            const phoneInput = document.getElementById('phone-input').value;
+            const phoneRegex = /^010-?\d{3,4}-?\d{4}$/;
+
+            if (phoneRegex.test(phoneInput)) {
+                remainingSpins = 3;
+                alert("인증 성공! 3번의 기회가 부여되었습니다.");
+                updateChanceUI();
+            } else {
+                alert("올바른 전화번호 형식을 입력해주세요.");
+            }
+        }
+
+        function updateChanceUI() {
+            chanceDisplay.innerText = `남은 기회: ${remainingSpins}회`;
+            spinBtn.disabled = !(remainingSpins > 0 && !isSpinning);
+        }
+
+        const canvas = document.getElementById("wheel-canvas");
+        const ctx = canvas.getContext("2d");
+        const prizes = [
+            {label: "GRAND", color: "#FFD700", text: "#000"},
+            {label: "MAJOR", color: "#C0C0C0", text: "#000"},
+            {label: "MINOR", color: "#CD7F32", text: "#fff"},
+            {label: "수입차 100만", color: "#6A5ACD", text: "#fff"},
+            {label: "국산 50만", color: "#FF8C00", text: "#fff"},
+            {label: "수입차 50만", color: "#C71585", text: "#fff"},
+            {label: "국산 30만", color: "#008080", text: "#fff"},
+            {label: "수입차 30만", color: "#DAA520", text: "#000"},
+            {label: "국산 15만", color: "#228B22", text: "#fff"},
+            {label: "초코파이", color: "#FF4500", text: "#fff"}, // index: 9
+            {label: "음료권", color: "#20B2AA", text: "#fff"},  // index: 10
+            {label: "수제커피", color: "#EEDD82", text: "#000"}, // index: 11
+            {label: "꽝", color: "#333333", text: "#fff"},
+        ];
+
+        const numSlices = prizes.length;
+        const arc = (2 * Math.PI) / numSlices;
+        let currentRotation = 0;
+
+        function drawWheel() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 260;
+
+            for (let i = 0; i < numSlices; i++) {
+                const angle = currentRotation + i * arc;
+                ctx.fillStyle = prizes[i].color;
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, angle, angle + arc, false);
+                ctx.fill();
+                ctx.strokeStyle = "rgba(255,255,255,0.3)";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(angle + arc / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = prizes[i].text;
+                ctx.font = "bold 17px Noto Sans KR";
+                ctx.fillText(prizes[i].label, radius - 30, 10);
+                ctx.restore();
+            }
+
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 50, 0, Math.PI * 2);
+            ctx.fillStyle = "#fff"; ctx.fill();
+            ctx.strokeStyle = "#cf9d42"; ctx.lineWidth = 5; ctx.stroke();
+        }
+
+        function spinWheel() {
+            if (isSpinning || remainingSpins <= 0) return;
+            
+            isSpinning = true;
+            remainingSpins--;
+            updateChanceUI();
+
+            // --- 당첨 조작 로직 시작 ---
+            // 당첨 가능한 인덱스: 9(초코파이), 10(음료권), 11(수제커피)
+            const riggedIndices = [9, 10, 11];
+            const targetIndex = riggedIndices[Math.floor(Math.random() * riggedIndices.length)];
+            
+            const pointerAngle = 1.5 * Math.PI; // 12시 방향 고정
+            // targetIndex가 12시 방향에 오기 위한 회전 각도 계산
+            const targetFinalRotation = (pointerAngle - (targetIndex + 0.5) * arc + Math.PI * 2) % (Math.PI * 2);
+            
+            const currentRotationRad = currentRotation % (Math.PI * 2);
+            let rotationNeeded = (targetFinalRotation - currentRotationRad + Math.PI * 2) % (Math.PI * 2);
+            
+            // 시각적 효과를 위해 최소 5~10바퀴 더 회전시킴
+            rotationNeeded += Math.PI * 2 * (5 + Math.floor(Math.random() * 5));
+            const randomRotationDegree = (rotationNeeded * 180) / Math.PI;
+            // --- 당첨 조작 로직 종료 ---
+
+            const duration = 5000;
+            const startTimestamp = performance.now();
+            const startRotation = currentRotation;
+
+            function animate(timestamp) {
+                const elapsed = timestamp - startTimestamp;
+                const progress = Math.min(elapsed / duration, 1);
+                const easing = 1 - Math.pow(1 - progress, 4);
+                
+                currentRotation = startRotation + (rotationNeeded * easing);
+                drawWheel();
+
+                if (progress < 1) {
+                    requestAnimationFrame(animate);
+                } else {
+                    isSpinning = false;
+                    const result = prizes[targetIndex].label;
+                    
+                    setTimeout(() => {
+                        alert(`🎉 [${result}] 당첨! \n남은 기회: ${remainingSpins}회`);
+                        updateChanceUI();
+                        if (remainingSpins === 0) alert("모든 기회를 사용하셨습니다.");
+                    }, 300);
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        drawWheel();
+    </script>
+</body>
+</html>
