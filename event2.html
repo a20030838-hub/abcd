@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정모터스 6주년 기념 이벤트</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Cinzel:wght@700&family=Noto+Sans+KR:wght@400;700&display=swap');
+
+        :root {
+            --gold-light: #fcf6ba;
+            --gold-main: #bf953f;
+            --gold-dark: #8a642d;
+            --premium-black: #0f0f0f;
+            --gold-gradient: linear-gradient(135deg, #fbf5b7 0%, #cf9d42 25%, #b38728 50%, #fbf5b7 100%);
+        }
+
+        body {
+            margin: 0; padding: 0;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            color: white;
+            font-family: 'Noto Sans KR', sans-serif;
+            display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* --- 상단 멋진 헤더 섹션 --- */
+        .event-header {
+            margin-top: 50px;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .main-title {
+            font-family: 'Black Han Sans', sans-serif;
+            font-size: 3.8rem;
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            filter: drop-shadow(0 4px 10px rgba(186, 148, 62, 0.5));
+            animation: titleFloat 3s ease-in-out infinite;
+            letter-spacing: -1px;
+        }
+
+        .sub-info {
+            font-size: 1.4rem;
+            color: var(--gold-light);
+            margin-top: 15px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-shadow: 0 0 15px rgba(252, 246, 186, 0.4);
+            border-top: 1px solid var(--gold-dark);
+            border-bottom: 1px solid var(--gold-dark);
+            padding: 8px 20px;
+            display: inline-block;
+        }
+
+        @keyframes titleFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* --- 입력 섹션 --- */
+        .input-wrap {
+            margin: 40px 0;
+            padding: 25px 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(191, 149, 63, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .input-wrap input {
+            background: #111;
+            border: 1px solid var(--gold-main);
+            color: white;
+            padding: 15px;
+            font-size: 1.2rem;
+            width: 280px;
+            text-align: center;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .input-wrap button {
+            background: var(--gold-gradient);
+            color: #300;
+            border: none;
+            padding: 15px 40px;
+            font-weight: 900;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.4s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+        }
+
+        .input-wrap button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(186, 148, 62, 0.6);
+        }
+
+        /* --- 슬롯머신 디자인 --- */
+        .slot-machine-frame {
+            position: relative;
+            background: #111;
+            padding: 20px;
+            border: 8px solid;
+            border-image: var(--gold-gradient) 1;
+            box-shadow: 0 0 80px rgba(0,0,0,1);
+        }
+
+        .reels-container {
+            display: flex;
+            gap: 15px;
+            background: #000;
+            padding: 15px;
+            overflow: hidden;
+            height: 180px;
+        }
+
+        .reel {
+            width: 140px;
+            height: 180px;
+            background: linear-gradient(to bottom, #111, #333, #111);
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .reel-strip {
+            position: absolute;
+            top: 0; left: 0; width: 100%;
+            transition: transform 4s cubic-bezier(0.1, 0, 0.1, 1);
+            display: flex; flex-direction: column;
+        }
+
+        .symbol {
+            height: 180px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem; font-weight: bold;
+            color: var(--gold-light);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+        }
+
+        /* --- 하단 버튼 --- */
+        .spin-btn {
+            margin: 40px 0;
+            width: 130px; height: 130px;
+            border-radius: 50%;
+            border: 10px solid #222;
+            background: var(--gold-gradient);
+            color: #300; font-size: 2rem; font-family: 'Black Han Sans', sans-serif;
+            cursor: pointer;
+            box-shadow: 0 8px 0 var(--gold-dark);
+            transition: 0.1s;
+        }
+
+        .spin-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 4px 0 var(--gold-dark);
+        }
+
+        .spin-btn:disabled {
+            background: #333; color: #666; box-shadow: none; cursor: default;
+        }
+
+        .chance-display {
+            font-size: 1.8rem;
+            font-family: 'Cinzel', serif;
+            color: var(--gold-main);
+            margin-bottom: 50px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="event-header">
+        <h1 class="main-title">정모터스 6주년 기념 이벤트</h1>
+        <div class="sub-info">대전오토몰 No.1 매니저 이영훈</div>
+    </div>
+
+    <div class="input-wrap" id="entry-box">
+        <input type="tel" id="phone-input" placeholder="전화번호를 입력하세요">
+        <button onclick="grantAccess()">이벤트 입장하기</button>
+    </div>
+
+    <div class="slot-machine-frame" id="machine-frame" style="opacity: 0.3; pointer-events: none;">
+        <div class="reels-container">
+            <div class="reel"><div class="reel-strip" id="reel1"></div></div>
+            <div class="reel"><div class="reel-strip" id="reel2"></div></div>
+            <div class="reel"><div class="reel-strip" id="reel3"></div></div>
+        </div>
+    </div>
+
+    <button class="spin-btn" id="spin-btn" onclick="spin()" disabled>SPIN</button>
+    <div class="chance-display" id="chance-text">CHANCES: 0</div>
+
+    <script>
+        const prizes = ["💎 GRAND", "💰 MAJOR", "✨ MINOR", "🥯 초코파이", "☕ 음료권", "☕ 수제커피", "🚗 차량할인", "⭐ 6주년상"];
+        const rigList = ["🥯 초코파이", "☕ 음료권", "☕ 수제커피"];
+        const strips = [document.getElementById('reel1'), document.getElementById('reel2'), document.getElementById('reel3')];
+        const symbolH = 180;
+        let count = 0;
+        let moving = false;
+
+        function init() {
+            strips.forEach(s => {
+                s.innerHTML = '';
+                for(let i=0; i<50; i++) {
+                    const d = document.createElement('div');
+                    d.className = 'symbol';
+                    d.innerText = prizes[Math.floor(Math.random()*prizes.length)];
+                    s.appendChild(d);
+                }
+            });
+        }
+
+        function grantAccess() {
+            const val = document.getElementById('phone-input').value;
+            if(/^010-?\d{3,4}-?\d{4}$/.test(val)) {
+                count = 3;
+                document.getElementById('entry-box').style.display = 'none';
+                document.getElementById('machine-frame').style.opacity = '1';
+                update();
+                alert("정모터스 6주년 이벤트에 오신 것을 환영합니다!\n매니저 이영훈이 드리는 3번의 기회를 잡으세요.");
+            } else {
+                alert("번호를 정확히 입력해 주세요.");
+            }
+        }
+
+        function update() {
+            document.getElementById('chance-text').innerText = `CHANCES: ${count}`;
+            document.getElementById('spin-btn').disabled = (count <= 0 || moving);
+        }
+
+        function spin() {
+            if(moving || count <= 0) return;
+            moving = true;
+            count--;
+            update();
+
+            const win = rigList[Math.floor(Math.random()*rigList.length)];
+
+            strips.forEach((s, i) => {
+                const targetIdx = s.children.length - 1;
+                s.children[targetIdx].innerText = win;
+                const dist = targetIdx * symbolH;
+                s.style.transition = `transform ${3.5 + (i*0.5)}s cubic-bezier(0.1, 0, 0.1, 1)`;
+                s.style.transform = `translateY(-${dist}px)`;
+            });
+
+            setTimeout(() => {
+                alert(`🎊 [ ${win} ] 당첨! 축하드립니다!`);
+                strips.forEach(s => {
+                    s.style.transition = 'none';
+                    s.style.transform = 'translateY(0)';
+                });
+                init();
+                moving = false;
+                update();
+                if(count === 0) alert("오늘의 모든 기회를 사용하셨습니다. 참여해주셔서 감사합니다!");
+            }, 5000);
+        }
+
+        init();
+    </script>
+</body>
+</html>
