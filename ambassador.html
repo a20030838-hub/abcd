@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE AMBASSADOR - Premium Selection</title>
+    <!-- [Fonts] Google Fonts: Playfair Display(명조/제목용) + Lato(고딕/본문용) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,800;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* [1] GLOBAL & VARIABLES */
+        :root {
+            --bg-color: #ffffff;
+            --text-main: #111111;
+            --text-sub: #555555;
+            --accent: #D4AF37; /* Gold Color */
+            --light-gray: #f4f4f4;
+            --border: #e0e0e0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Lato', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, .brand-font { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        ul { list-style: none; }
+        button { border: none; background: none; cursor: pointer; font-family: 'Lato', sans-serif; }
+
+        /* [2] UTILITIES */
+        .hidden { display: none !important; opacity: 0; }
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+        /* [3] HEADER (Sticky & Glass) */
+        header {
+            position: fixed; top: 0; width: 100%; height: 90px;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 60px; z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        .logo { font-size: 24px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .nav-menu { display: flex; gap: 40px; }
+        .nav-menu a { font-size: 14px; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; position: relative; }
+        .nav-menu a::after {
+            content: ''; position: absolute; width: 0; height: 1px; bottom: -5px; left: 0;
+            background-color: var(--text-main); transition: width 0.3s;
+        }
+        .nav-menu a:hover::after { width: 100%; }
+        
+        .auth-area { font-size: 14px; display: flex; align-items: center; gap: 20px; }
+        .btn-auth { text-transform: uppercase; letter-spacing: 1px; font-weight: 700; font-size: 12px; }
+        .user-badge { color: var(--accent); font-weight: 700; font-family: 'Playfair Display', serif; }
+
+        /* [4] HERO SECTION */
+        .hero {
+            height: 100vh;
+            background: url('https://images.unsplash.com/photo-1469334031218-e382a71b716b?q=80&w=2070&auto=format&fit=crop') no-repeat center/cover;
+            display: flex; align-items: center; justify-content: center;
+            position: relative;
+        }
+        .hero::after { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.2); }
+        .hero-content { position: relative; z-index: 2; text-align: center; color: white; }
+        .hero h1 { font-size: 4rem; margin-bottom: 20px; font-weight: 400; letter-spacing: 3px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 40px; font-weight: 300; letter-spacing: 1px; opacity: 0.9; }
+        .btn-main {
+            padding: 15px 50px; border: 1px solid white; color: white;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 12px;
+            transition: 0.3s; background: transparent;
+        }
+        .btn-main:hover { background: white; color: black; }
+
+        /* [5] SECTIONS */
+        .section-header { text-align: center; margin: 100px 0 60px; }
+        .section-title { font-size: 3rem; font-weight: 400; margin-bottom: 15px; }
+        .section-desc { color: var(--text-sub); font-style: italic; }
+
+        /* AMBASSADOR GRID */
+        .amb-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .amb-card { text-align: center; cursor: pointer; group: hover; }
+        .amb-img-wrap {
+            width: 200px; height: 200px; margin: 0 auto 20px;
+            border-radius: 50%; overflow: hidden; border: 1px solid transparent;
+            transition: 0.3s;
+        }
+        .amb-card:hover .amb-img-wrap { border-color: var(--accent); transform: scale(1.02); }
+        .amb-img { width: 100%; height: 100%; object-fit: cover; }
+        .amb-name { font-size: 1.5rem; margin-bottom: 5px; }
+        .amb-role { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-sub); }
+
+        /* PRODUCT GRID (Masonry style look) */
+        .prod-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 60px 30px; margin-bottom: 100px; }
+        .prod-card { transition: 0.4s; }
+        .prod-card:hover { transform: translateY(-10px); }
+        
+        .prod-img-box {
+            position: relative; width: 100%; height: 400px; overflow: hidden; margin-bottom: 20px;
+            background-color: var(--light-gray);
+        }
+        .prod-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .prod-card:hover .prod-img { transform: scale(1.05); }
+        
+        .pick-badge {
+            position: absolute; top: 20px; left: 20px; background: white; color: black;
+            padding: 8px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700;
+        }
+
+        .prod-meta { text-align: center; }
+        .prod-brand { font-size: 11px; text-transform: uppercase; letter-spacing: 2px; color: var(--accent); margin-bottom: 8px; display: block; }
+        .prod-title { font-size: 1.2rem; font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+        .prod-price { font-size: 1rem; color: var(--text-sub); font-weight: 300; }
+        .btn-cart {
+            margin-top: 15px; width: 100%; padding: 12px; border: 1px solid #ddd;
+            background: white; text-transform: uppercase; font-size: 11px; letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .btn-cart:hover { border-color: black; background: black; color: white; }
+
+        /* [6] AUTH FORM (Minimalist) */
+        .auth-wrapper {
+            min-height: 80vh; display: flex; align-items: center; justify-content: center;
+            background-color: var(--light-gray); margin-top: 90px;
+        }
+        .auth-box {
+            background: white; width: 100%; max-width: 450px; padding: 60px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05); text-align: center;
+        }
+        .auth-header { margin-bottom: 40px; }
+        .auth-header h2 { font-size: 2rem; margin-bottom: 10px; }
+        
+        .input-group { margin-bottom: 25px; text-align: left; }
+        .input-group label { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; color: #888; }
+        .custom-input {
+            width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #ddd;
+            font-size: 16px; outline: none; transition: 0.3s; font-family: 'Playfair Display', serif;
+        }
+        .custom-input:focus { border-bottom-color: black; }
+        
+        .btn-submit {
+            width: 100%; padding: 18px; background: black; color: white;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-top: 20px;
+            transition: 0.3s;
+        }
+        .btn-submit:hover { background: var(--accent); }
+        .auth-switch { margin-top: 20px; font-size: 13px; color: #666; }
+        .auth-switch span { text-decoration: underline; cursor: pointer; color: black; }
+
+        /* FOOTER */
+        footer { background: #111; color: #666; padding: 80px 0; text-align: center; font-size: 12px; letter-spacing: 1px; }
+    </style>
+</head>
+<body>
+
+    <!-- 헤더 -->
+    <header>
+        <div class="logo"><a href="#" onclick="app.router('home')">The Ambassador</a></div>
+        <nav class="nav-menu">
+            <a onclick="app.router('home')">Home</a>
+            <a href="#ambassadors">Curators</a>
+            <a href="#collection">Collection</a>
+        </nav>
+        <div class="auth-area" id="auth-area">
+            <!-- JS Rendered -->
+        </div>
+    </header>
+
+    <!-- [1] HOME PAGE -->
+    <main id="view-home">
+        <section class="hero">
+            <div class="hero-content fade-in">
+                <h1>Taste of Elegance</h1>
+                <p>세계적인 인플루언서들이 제안하는 하이엔드 라이프스타일</p>
+                <button class="btn-main" onclick="document.getElementById('collection').scrollIntoView({behavior:'smooth'})">Explore Collection</button>
+            </div>
+        </section>
+
+        <div class="container">
+            <!-- Ambassadors -->
+            <div class="section-header fade-in" id="ambassadors">
+                <h2 class="section-title">The Curators</h2>
+                <p class="section-desc">각 분야 최고의 전문가들이 엄선했습니다.</p>
+            </div>
+            <div class="amb-grid" id="amb-list">
+                <!-- JS Insert -->
+            </div>
+
+            <!-- Products -->
+            <div class="section-header fade-in" id="collection" style="margin-top: 150px;">
+                <h2 class="section-title">Masterpiece Selection</h2>
+                <p class="section-desc">당신의 일상을 예술로 만드는 오브제</p>
+            </div>
+            <div class="prod-grid" id="prod-list">
+                <!-- JS Insert -->
+            </div>
+        </div>
+    </main>
+
+    <!-- [2] LOGIN PAGE -->
+    <main id="view-login" class="hidden">
+        <div class="auth-wrapper">
+            <div class="auth-box fade-in">
+                <div class="auth-header">
+                    <h2>Sign In</h2>
+                    <p>당신의 취향을 이어가세요</p>
+                </div>
+                <form onsubmit="app.handleLogin(event)">
+                    <div class="input-group">
+                        <label>User ID</label>
+                        <input type="text" id="login-id" class="custom-input" placeholder="Enter your ID" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="login-pw" class="custom-input" placeholder="••••••" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Login</button>
+                </form>
+                <div class="auth-switch">
+                    아직 회원이 아니신가요? <span onclick="app.router('signup')">회원가입 하기</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- [3] SIGNUP PAGE -->
+    <main id="view-signup" class="hidden">
+        <div class="auth-wrapper">
+            <div class="auth-box fade-in">
+                <div class="auth-header">
+                    <h2>Membership</h2>
+                    <p>프리미엄 큐레이션을 경험하세요</p>
+                </div>
+                <form onsubmit="app.handleSignup(event)">
+                    <div class="input-group">
+                        <label>Name</label>
+                        <input type="text" id="sign-name" class="custom-input" placeholder="Full Name" required>
+                    </div>
+                    <div class="input-group">
+                        <label>User ID</label>
+                        <input type="text" id="sign-id" class="custom-input" placeholder="Create ID" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Password</label>
+                        <input type="password" id="sign-pw" class="custom-input" required>
+                    </div>
+                    <button type="submit" class="btn-submit">Join Membership</button>
+                </form>
+                <div class="auth-switch">
+                    이미 계정이 있으신가요? <span onclick="app.router('login')">로그인 하기</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 THE AMBASSADOR SEOUL. ALL RIGHTS RESERVED.</p>
+    </footer>
+
+    <script>
+        /**
+         * WORLD CLASS DEVELOPER LOGIC
+         * 1. 실제 Unsplash 이미지 URL 사용 (랜덤 아님, 고정된 고퀄리티 이미지)
+         * 2. LocalStorage 기반 인증 시스템 유지
+         * 3. 모듈화된 객체 지향 스타일 코드
+         */
+        const app = {
+            data: {
+                ambassadors: [
+                    { name: 'Chloe Kim', role: 'Fashion Director', img: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=80' },
+                    { name: 'David Lee', role: 'Interior Designer', img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80' },
+                    { name: 'Sarah Park', role: 'Beauty Editor', img: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&q=80' },
+                    { name: 'James Han', role: 'Tech Reviewer', img: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=500&q=80' }
+                ],
+                products: [
+                    { id: 1, brand: 'Chloe\'s Pick', title: 'Classic Trench Coat', price: '280,000', img: 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80' },
+                    { id: 2, brand: 'David\'s Pick', title: 'Minimalist Wood Chair', price: '450,000', img: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=600&q=80' },
+                    { id: 3, brand: 'Sarah\'s Pick', title: 'Niche Perfume No.5', price: '185,000', img: 'https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&q=80' },
+                    { id: 4, brand: 'James\'s Pick', title: 'Vintage Film Camera', price: '820,000', img: 'https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?w=600&q=80' },
+                    { id: 5, brand: 'Chloe\'s Pick', title: 'Gold Frame Sunglasses', price: '320,000', img: 'https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600&q=80' },
+                    { id: 6, brand: 'David\'s Pick', title: 'Ceramic Vase Set', price: '120,000', img: 'https://images.unsplash.com/photo-1578500494198-246f612d3b3d?w=600&q=80' },
+                    { id: 7, brand: 'James\'s Pick', title: 'Luxury Chronograph', price: '2,500,000', img: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&q=80' },
+                    { id: 8, brand: 'Sarah\'s Pick', title: 'Silk Satin Scarf', price: '95,000', img: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80' }
+                ]
+            },
+
+            init: function() {
+                this.renderContent();
+                this.checkSession();
+                this.router('home');
+            },
+
+            router: function(viewName) {
+                document.querySelectorAll('main').forEach(el => el.classList.add('hidden'));
+                const target = document.getElementById(`view-${viewName}`);
+                target.classList.remove('hidden');
+                
+                // 애니메이션 재실행을 위해 클래스 리셋
+                const content = target.querySelector('.fade-in') || target;
+                content.classList.remove('fade-in');
+                void content.offsetWidth; // Trigger Reflow
+                content.classList.add('fade-in');
+
+                window.scrollTo(0, 0);
+            },
+
+            renderContent: function() {
+                // 앰버서더 렌더링
+                const ambHtml = this.data.ambassadors.map(amb => `
+                    <div class="amb-card">
+                        <div class="amb-img-wrap">
+                            <img src="${amb.img}" class="amb-img" alt="${amb.name}">
+                        </div>
+                        <h3 class="amb-name">${amb.name}</h3>
+                        <p class="amb-role">${amb.role}</p>
+                    </div>
+                `).join('');
+                document.getElementById('amb-list').innerHTML = ambHtml;
+
+                // 상품 렌더링
+                const prodHtml = this.data.products.map(p => `
+                    <div class="prod-card">
+                        <div class="prod-img-box">
+                            <span class="pick-badge">Curator's Pick</span>
+                            <img src="${p.img}" class="prod-img" alt="${p.title}">
+                        </div>
+                        <div class="prod-meta">
+                            <span class="prod-brand">${p.brand}</span>
+                            <h4 class="prod-title">${p.title}</h4>
+                            <p class="prod-price">KRW ${p.price}</p>
+                            <button class="btn-cart" onclick="app.addToCart()">Add to Bag</button>
+                        </div>
+                    </div>
+                `).join('');
+                document.getElementById('prod-list').innerHTML = prodHtml;
+            },
+
+            // --- AUTH LOGIC (SAME AS BEFORE) ---
+            checkSession: function() {
+                const session = JSON.parse(localStorage.getItem('amb_session'));
+                const ui = document.getElementById('auth-area');
+                if (session) {
+                    ui.innerHTML = `
+                        <span class="user-badge">Hello, ${session.name}</span>
+                        <button class="btn-auth" onclick="app.logout()">Logout</button>
+                    `;
+                } else {
+                    ui.innerHTML = `
+                        <button class="btn-auth" onclick="app.router('login')">Sign In</button>
+                        <button class="btn-auth" style="border:1px solid #111; padding:5px 15px;" onclick="app.router('signup')">Join</button>
+                    `;
+                }
+            },
+
+            handleSignup: function(e) {
+                e.preventDefault();
+                const name = document.getElementById('sign-name').value;
+                const id = document.getElementById('sign-id').value;
+                const pw = document.getElementById('sign-pw').value;
+                
+                let users = JSON.parse(localStorage.getItem('amb_users')) || [];
+                if(users.find(u => u.id === id)) { alert('This ID is already taken.'); return; }
+                
+                users.push({ name, id, pw });
+                localStorage.setItem('amb_users', JSON.stringify(users));
+                alert('Membership created successfully.');
+                this.router('login');
+            },
+
+            handleLogin: function(e) {
+                e.preventDefault();
+                const id = document.getElementById('login-id').value;
+                const pw = document.getElementById('login-pw').value;
+                
+                const users = JSON.parse(localStorage.getItem('amb_users')) || [];
+                const user = users.find(u => u.id === id && u.pw === pw);
+                
+                if(user) {
+                    localStorage.setItem('amb_session', JSON.stringify(user));
+                    this.checkSession();
+                    this.router('home');
+                } else {
+                    alert('Invalid ID or Password.');
+                }
+            },
+
+            logout: function() {
+                localStorage.removeItem('amb_session');
+                this.checkSession();
+                this.router('home');
+            },
+
+            addToCart: function() {
+                if(!localStorage.getItem('amb_session')) {
+                    if(confirm('Please sign in to shop.')) this.router('login');
+                } else {
+                    alert('Added to your shopping bag.');
+                }
+            }
+        };
+
+        // Initialize
+        app.init();
+    </script>
+</body>
+</html>
